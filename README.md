@@ -11,6 +11,7 @@ Be able to tell the total memory usage.
 Be able to isolate javascript objects or monitor targeting objects.
 
 -Challenges we are facing:
+
 Research on potential useful tools, we want to avoid reinventing the wheel
 Usually, sequential actions define user experience, how to benchmark the sequential actions and extract meaningful metrics.
 Make the benchmark suite lightweight and easy to use, so that many of our new hands at the front-end are able to incorporate it into their workflow and use it as guideline, which hopefully will lead to snappy user interface.
