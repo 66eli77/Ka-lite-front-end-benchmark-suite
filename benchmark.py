@@ -1,27 +1,37 @@
 from selenium import webdriver
-from selenium.webdriver import ChromeOptions
-from selenium.webdriver.common import keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import json
-import time
-import os
 import datetime
+import os
+import imp
 
 capabilities = DesiredCapabilities.CHROME
 capabilities['loggingPrefs'] = {'performance':'ALL'}
+# enable traceCategories of your choice for the new devtools format, which automatically disable timeline log
+# for a complete list of traceCategories, open Chrome with this url: chrome://tracing/json/categories
 capabilities['chromeOptions'] = {'perfLoggingPrefs': {'traceCategories':'blink.console,disabled-by-default-devtools.timeline'}, 'extensions': [], 'args': []}
-# capabilities['perfLoggingPrefs'] = {'traceCategories':'AccountTrackerService,CRLSet,CRLSetFetcher,ETW Trace Event,FileSystem,IndexedDB,RLZ,ServiceWorker,ValueStoreFrontend::Backend,WebCore,audio,base,benchmark,blink,blink,benchmark,blink_gc,browser,browser,navigation,cc,cc,benchmark,cc,disabled-by-default-devtools.timeline,disabled-by-default-blink.debug.layout,disabled-by-default-blink.graphics_context_annotations,disabled-by-default-blink.invalidation,disabled-by-default-cb_command,disabled-by-default-cc.debug,disabled-by-default-cc.debug,disabled-by-default-cc.debug.quads,disabled-by-default-devtools.timeline.layers,disabled-by-default-cc.debug,disabled-by-default-devtools.timeline.layers,disabled-by-default-cc.debug.picture,disabled-by-default-cc.debug.picture,disabled-by-default-devtools.timeline.picture,disabled-by-default-cc.debug.quads,disabled-by-default-cc.debug.scheduler,disabled-by-default-cc.debug.scheduler.now,disabled-by-default-devtools.timeline,disabled-by-default-devtools.timeline.frame,disabled-by-default-devtools.timeline.invalidationTracking,disabled-by-default-gpu.debug,disabled-by-default-gpu.device,disabled-by-default-gpu.service,disabled-by-default-gpu_decoder,disabled-by-default-ipc.flow,disabled-by-default-netlog,disabled-by-default-renderer.scheduler,disabled-by-default-skia,disabled-by-default-system_stats,disabled-by-default-toplevel.flow,disabled-by-default-v8_cpu_profile,event,gpu,identity,input,ipc,ipc,toplevel,leveldb,loader,media,navigation,net,renderer,renderer_host,renderer_host,navigation,skia,startup,sync,sync_lock_contention,test_fps,test_gpu,trace_event_overhead,ui,v8,webkit,webrtc'}
+# capabilities['perfLoggingPrefs'] = {'enableTimeline':'True'} #enable timeline log
 
-driver = webdriver.Chrome(
-	# chrome_options = options,
-    executable_path='/Users/Eli/Downloads/chromedriver', #path to the latest version chromedriver 
-    desired_capabilities=capabilities)
+# if user specified ChromeDriver path, use the ChromeDriver
+chromedriver_path = os.environ["chromedriver_path"]
+if(chromedriver_path):
+	driver = webdriver.Chrome(
+	    executable_path=chromedriver_path, # if chromedriver is not in the path of python, need to specify here.
+	    desired_capabilities=capabilities)
+else:
+	driver = webdriver.Chrome(desired_capabilities=capabilities)
  
 driver.command_executor._commands.update({'getLog': ('POST', '/session/$sessionId/log')})
 
-driver.get('http://news.google.com')
+# import pre-defined web actions from the user
+driver.get(os.environ["benchmark_url"])
+actions = imp.load_source('selenium_scripts', os.environ['benchmark_actions'])
+actions.web_actions(driver)
+
+# gather the tracing logs for chrome devtools' timeline
 timeline_log = driver.execute('getLog', {'type': 'performance'})['value']
 
+# parse and save the tracing logs to disk
 now = datetime.datetime.now()
 date = str(now)[:10] +':'+ str(now.hour) +'_'+ str(now.minute) +'_'+ str(now.second)
 f = open('benchmarkLog' + date + '.json', 'w')

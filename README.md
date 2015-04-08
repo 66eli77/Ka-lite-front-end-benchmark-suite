@@ -1,21 +1,42 @@
 # Ka-lite-front-end-benchmark-suite
--Description:
+**-Description**
 
-For better guiding the front-end optimization and development in general, we need an automated front-end benchmark suite that reports metrics about the Javascript performance of our platform.
+This benchmark suite is designed for the Ka-lite front-end optimization and development in general, and can only run on Chrome. It uses Selenium to capture Chrome logs and drive the tested webpage. User can then uses the timeline tab of Chrome devtools to display the results. Since this benchmark suite clearly separates the log capturing logic and webpage behavior logic, one can easily adapt this suite for his/her website front-end benchmarking.
 
-There are some desired characteristics we want this benchmark suite to have.
-Be able to run the benchmark in a standard configurable environment.
-Be able to run a benchmark on a base sample(it could be a page from kalite master branch), then run a benchmark on a target sample(it could be a page from kalite develop branch), and compare the target benchmark against the base benchmark.
-Be able to tell the DOM manipulation(number of DOM nodes, time to construct the DOM tree, time to render the DOM to viewport).
-Be able to tell the total memory usage.
-Be able to isolate javascript objects or monitor targeting objects.
+**-How to use** (tested on Mac)
 
--Challenges we are facing:
+First, you need to install Selenium python
 
-Research on potential useful tools, we want to avoid reinventing the wheel
-Usually, sequential actions define user experience, how to benchmark the sequential actions and extract meaningful metrics.
-Make the benchmark suite lightweight and easy to use, so that many of our new hands at the front-end are able to incorporate it into their workflow and use it as guideline, which hopefully will lead to snappy user interface.
+```
+pip install -U selenium
+```
+You may also need to download the latest [Chromedriver](https://sites.google.com/a/chromium.org/chromedriver/downloads).
 
--Solutionis:
+Once it’s done, run the benchmark like this:
+```
+$ ./run_benchmark.sh
+```
+if you want to use the Chromedriver you downloaded
+```
+$ ./run_benchmark.sh <full-path-to-your-Chromedriver>
+```
+Then it will ask for the webpage URL that you want to benchmark for.(be sure the webpage is active and don’t forget to type in `http://`)
+For example:  `http://localhost:9022/learn/`
 
-Use Selenium Webdriver to define the benchmark actions(browser behaviors) and use Chrome debugger protocol via remote debugging mode to call Chrome profiler to profile the benchmark actions. We also need another layer to perform some filtering or calculation in order to extract meaningful info.
+Then it will ask for the full path of a python file where you define the webpage behaviors specifically for your program using Selenium. I’ve included a file `user_defined_behaviors.py` that you can use as a template. **!! IMPORTANT:** you should always include the definition
+```python
+def web_actions(webdriver):
+```
+in your code. Here the `webdriver` is defined in and passed by `benchmark.py`, you should not define your own webdriver.  [--How to use Selenium Python--](https://selenium-python.readthedocs.org/api.html#module-selenium.webdriver.remote.webelement)
+
+Finally, it will ask you weather or not to save the benchmarking log in Chrome devtools’ new format. If you want to display your benchmark log on Chrome version 38 and above, type `yes`, otherwise, type `no`.
+
+If you plan to use the [online Chrome devtools](http://www.webpagetest.org/chrome/timeline.php) provided by webpagetest.org, type in `no`
+
+(note: newer Chrome devtools’ timeline use tracing log instead of timeline log)
+
+When it’s done, you will find your benchmark log file with date mark.
+
+examples: `benchmarkLog2015-04-07/16_36_20.json`  or  `benchmarkLog_oldFormat2015-04-07/16_42_33.json`
+
+To view your benchmark log, open Chrome devtools, click on Timeline, right click anywhere, select `Load Timeline Data…`
