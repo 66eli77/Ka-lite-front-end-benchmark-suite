@@ -21,7 +21,7 @@ if you want to use the Chromedriver you downloaded
 $ ./run_benchmark.sh <full-path-to-your-Chromedriver>
 ```
 Then it will ask for the webpage URL that you want to benchmark for.(be sure the webpage is active and don’t forget to type in `http://`)
-For example:  `http://localhost:9022/learn/`
+For example:  `http://www.google.com`  or  `http://localhost:9022/learn/`
 
 Then it will ask for the full path of a python file where you define the webpage behaviors specifically for your program using Selenium. I’ve included a file `user_defined_behaviors.py` that you can use as a template. **!! IMPORTANT:** you should always include the definition
 ```python
