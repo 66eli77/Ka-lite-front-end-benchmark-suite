@@ -39,4 +39,4 @@ When it’s done, you will find your benchmark log file with date mark.
 
 examples: `benchmarkLog2015-04-07/16_36_20.json`  or  `benchmarkLog_oldFormat2015-04-07/16_42_33.json`
 
-To view your benchmark log, open Chrome devtools, click on Timeline, right click anywhere, select ###### Load Timeline Data…
+To view your benchmark log, open Chrome devtools, click on Timeline, right click anywhere, select `Load Timeline Data…`
