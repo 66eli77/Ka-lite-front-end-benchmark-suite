@@ -16,7 +16,7 @@ Once it’s done, run the benchmark like this:
 ```
 $ ./run_benchmark.sh
 ```
-if you want to use the Chromedriver you downloaded
+if you want to use the Chromedriver you downloaded (if you get error message complains about 'perfLoggingPrefs', means you are using an old incompatible Chromedriver. The newest Chromedriver as written is Chromedriver 2.15, but 2.14 also works)
 ```
 $ ./run_benchmark.sh <full-path-to-your-Chromedriver>
 ```
