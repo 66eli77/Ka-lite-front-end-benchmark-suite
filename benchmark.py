@@ -9,7 +9,8 @@ capabilities = DesiredCapabilities.CHROME
 capabilities['loggingPrefs'] = {'performance':'ALL'}
 # enable traceCategories of your choice for the new devtools format, which automatically disable timeline log
 # for a complete list of traceCategories, open Chrome with this url: chrome://tracing/json/categories
-capabilities['chromeOptions'] = {'perfLoggingPrefs': {'traceCategories':'blink.console,disabled-by-default-devtools.timeline'}, 'extensions': [], 'args': []}
+# !! disabled-by-default-devtools.timeline.frame this flag is for timeline frame-rate data !!
+capabilities['chromeOptions'] = {'perfLoggingPrefs': {'traceCategories':'browser,devtools.timeline,devtools,disabled-by-default-devtools.timeline,disabled-by-default-devtools.timeline.frame'}, 'extensions': [], 'args': []}
 # capabilities['perfLoggingPrefs'] = {'enableTimeline':'True'} #enable timeline log
 
 # if user specified ChromeDriver path, use the ChromeDriver
