@@ -33,21 +33,22 @@ actions.web_actions(driver)
 timeline_log = driver.execute('getLog', {'type': 'performance'})['value']
 
 # parse and save the tracing logs to disk
-now = datetime.datetime.now()
-date = str(now)[:10] +':'+ str(now.hour) +'_'+ str(now.minute) +'_'+ str(now.second)
-f = open('benchmarkLog' + date + '.json', 'w')
-f.write("[")
+if(os.environ["save_log"]=='yes'):
+    now = datetime.datetime.now()
+    date = str(now)[:10] +':'+ str(now.hour) +'_'+ str(now.minute) +'_'+ str(now.second)
+    f = open('benchmarkLog' + date + '.json', 'w')
+    f.write("[")
 
-for dic in timeline_log:
-	if 'Tracing.dataCollected' in dic['message']:
-		mydct = json.loads(dic['message'])
-		data = mydct['message']['params']
-		json.dump(data, f)
-		f.write(',')
+    for dic in timeline_log:
+    	if 'Tracing.dataCollected' in dic['message']:
+    		mydct = json.loads(dic['message'])
+    		data = mydct['message']['params']
+    		json.dump(data, f)
+    		f.write(',')
 
-f.seek(-1, os.SEEK_END)
-f.truncate()
-f.write(']')
-f.close()
+    f.seek(-1, os.SEEK_END)
+    f.truncate()
+    f.write(']')
+    f.close()
 
 driver.quit()
