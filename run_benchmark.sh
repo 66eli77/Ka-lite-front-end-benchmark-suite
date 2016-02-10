@@ -2,7 +2,7 @@
 chromedriver_path="/Users/Eli/Desktop/try_iDOM/Ka-lite-front-end-benchmark-suite/chromedriver"
 benchmark_url="http://localhost:8080/"
 benchmark_actions="/Users/Eli/Desktop/try_iDOM/Ka-lite-front-end-benchmark-suite/user_defined_behaviors.py"
-save_log="yes"
+save_log=true
 
 export chromedriver_path
 export benchmark_url

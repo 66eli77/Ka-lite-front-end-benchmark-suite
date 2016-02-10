@@ -33,7 +33,7 @@ actions.web_actions(driver)
 timeline_log = driver.execute('getLog', {'type': 'performance'})['value']
 
 # parse and save the tracing logs to disk
-if(os.environ["save_log"]=='yes'):
+if(os.environ["save_log"]=='true'):
     now = datetime.datetime.now()
     date = str(now)[:10] +':'+ str(now.hour) +'_'+ str(now.minute) +'_'+ str(now.second)
     f = open('benchmarkLog' + date + '.json', 'w')
