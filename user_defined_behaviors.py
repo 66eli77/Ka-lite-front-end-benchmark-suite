@@ -29,6 +29,22 @@ def web_actions(webdriver):
 			elem_6.send_keys(keys.Keys.RETURN)
 			elem_7.send_keys(keys.Keys.RETURN)
 
+		actionChains = ActionChains(webdriver)
+		actionChains.send_keys(keys.Keys.ARROW_DOWN).perform()
+		time.sleep(0.5)
+		x = 0
+		t = 0
+		while t < 6:
+			t += 1
+			if x == 0:
+				webdriver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+				time.sleep(0.2)
+				x += 1
+			else:
+				webdriver.execute_script("window.scrollTo(document.body.scrollHeight, 0);")
+				time.sleep(0.2)
+				x -= 1
+
 		remover_1 = webdriver.find_element_by_xpath('//*[@id="List - 1"]/li[1]/div/a')
 		remover_2 = webdriver.find_element_by_xpath('//*[@id="List - 2"]/li[1]/div/a')
 		remover_3 = webdriver.find_element_by_xpath('//*[@id="List - 3"]/li[1]/div/a')
@@ -46,6 +62,6 @@ def web_actions(webdriver):
 			remover_6.click()
 			remover_7.click()
 
-		time.sleep(2)
+		time.sleep(1)
 	finally:
 		print "finished!"
