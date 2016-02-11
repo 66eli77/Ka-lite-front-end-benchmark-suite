@@ -45,15 +45,21 @@ def web_actions(webdriver):
 				time.sleep(0.2)
 				x -= 1
 
-		remover_1 = webdriver.find_element_by_xpath('//*[@id="List - 1"]/li[1]/div/a')
-		remover_2 = webdriver.find_element_by_xpath('//*[@id="List - 2"]/li[1]/div/a')
-		remover_3 = webdriver.find_element_by_xpath('//*[@id="List - 3"]/li[1]/div/a')
-		remover_4 = webdriver.find_element_by_xpath('//*[@id="List - 4"]/li[1]/div/a')
-		remover_5 = webdriver.find_element_by_xpath('//*[@id="List - 5"]/li[1]/div/a')
-		remover_6 = webdriver.find_element_by_xpath('//*[@id="List - 6"]/li[1]/div/a')
-		remover_7 = webdriver.find_element_by_xpath('//*[@id="List - 7"]/li[1]/div/a')
-
 		for i in range(8):
+			if i > 5:
+				a = i - 5
+			elif i > 3:
+				a = i - 3
+			else:
+				a = i
+			remover_1 = webdriver.find_element_by_id('List - 1-'+str(a))
+			remover_2 = webdriver.find_element_by_id('List - 2-'+str(a))
+			remover_3 = webdriver.find_element_by_id('List - 3-'+str(a))
+			remover_4 = webdriver.find_element_by_id('List - 4-'+str(a))
+			remover_5 = webdriver.find_element_by_id('List - 5-'+str(a))
+			remover_6 = webdriver.find_element_by_id('List - 6-'+str(a))
+			remover_7 = webdriver.find_element_by_id('List - 7-'+str(a))
+
 			remover_1.click()
 			remover_2.click()
 			remover_3.click()
