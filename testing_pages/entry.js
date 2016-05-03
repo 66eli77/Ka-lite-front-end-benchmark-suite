@@ -1,0 +1,1 @@
+require("./idom.js")

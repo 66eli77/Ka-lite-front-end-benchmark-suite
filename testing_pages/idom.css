@@ -1,0 +1,27 @@
+#container_1{
+    background-color: pink;
+}
+#container_2{
+    background-color: green;
+}
+#container_3{
+    background-color: blue;
+}
+#container_4{
+    background-color: orange;
+}
+#container_5{
+    background-color: purple;
+}
+#container_6{
+    background-color: red;
+}
+#container_7{
+    background-color: grey;
+}
+
+.cr {
+    float: left;
+    max-width: 200px;
+    background-color: #80bfff;
+}
