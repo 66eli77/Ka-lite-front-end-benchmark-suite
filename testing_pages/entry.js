@@ -1,1 +1,1 @@
-require("./idom.js")
+require("./vue.js")
