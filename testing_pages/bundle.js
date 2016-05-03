@@ -89,7 +89,7 @@
 	            +       '<ul id="{{ title }}" class="collection">'
 	            +           '<li class="collection-item" v-for="todo in todos"><div>'
 	            +               '{{ todo.text }}'
-	            +               '<a v-on:click="removeTodo($index)" id="{{ title }}-0" class="secondary-content" href="#!"><i class="material-icons">send</i></a>'
+	            +               '<a v-on:click="removeTodo($index)" id="{{ title }}-{{ $index }}" class="secondary-content" href="#!"><i class="material-icons">send</i></a>'
 	            +            '</div></li>'
 	            +       '</ul>'
 	            +    '</div></div></div>'
