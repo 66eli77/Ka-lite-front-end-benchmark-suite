@@ -1,7 +1,7 @@
 #save me the trouble to input these env variables everytime!
-chromedriver_path="/Users/Eli/Desktop/try_iDOM/Ka-lite-front-end-benchmark-suite/chromedriver"
-benchmark_url="http://localhost:8080/"
-benchmark_actions="/Users/Eli/Desktop/try_iDOM/Ka-lite-front-end-benchmark-suite/user_defined_behaviors.py"
+chromedriver_path="./chromedriver"
+benchmark_url="http://localhost:8888/"
+benchmark_actions="./user_defined_behaviors.py"
 save_log=true
 
 export chromedriver_path
